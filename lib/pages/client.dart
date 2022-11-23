@@ -3,6 +3,7 @@ import 'package:client_city/help/components.dart';
 import 'package:client_city/model/city_model.dart';
 import 'package:client_city/model/client_model.dart';
 import 'package:client_city/pages/city.dart';
+import 'package:client_city/pages/client_add.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -37,7 +38,22 @@ class _ClientState extends State<Client> {
         fit: BoxFit.fill,
         child: Row(
           children: [
-            IconButton(onPressed: null, icon: Icon(Icons.edit)),
+            IconButton(
+                onPressed: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ClientAdd(),
+                          settings: RouteSettings(
+                            arguments: c,
+                          ),
+                        ),
+                      )
+                    },
+                icon: Icon(
+                  Icons.edit,
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                )),
             IconButton(
                 onPressed: () async {
                   await AccessApi().deleteClient(c.id);
@@ -45,7 +61,8 @@ class _ClientState extends State<Client> {
                     listClient();
                   });
                 },
-                icon: Icon(Icons.delete))
+                icon: Icon(Icons.delete,
+                    color: Theme.of(context).colorScheme.inversePrimary))
           ],
         ),
       ),
@@ -67,8 +84,8 @@ class _ClientState extends State<Client> {
     listClient();
   }
 
-  openRegister() {
-    Navigator.pushNamed(context, "/register",
+  redirectClientAdd() {
+    Navigator.pushNamed(context, "/clientAdd",
         arguments: ClientModel(0, "", "", 0, CityModel(0, "", "")));
   }
 
@@ -80,6 +97,7 @@ class _ClientState extends State<Client> {
           itemCount: lista.length,
           itemBuilder: (context, index) {
             return Card(
+              color: Theme.of(context).colorScheme.onBackground,
               elevation: 6,
               margin: const EdgeInsets.all(5),
               child: createCard(lista[index], context),
@@ -94,8 +112,8 @@ class _ClientState extends State<Client> {
       appBar: Components().createAppBar("Listagem de clientes", 20,
           Theme.of(context).colorScheme.inversePrimary, redirectHome),
       body: generateCards(),
-      floatingActionButton:
-          FloatingActionButton(onPressed: openRegister, child: Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+          onPressed: redirectClientAdd, child: Icon(Icons.add)),
     );
   }
 }

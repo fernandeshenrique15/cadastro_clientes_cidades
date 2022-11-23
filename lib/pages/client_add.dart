@@ -1,5 +1,9 @@
+import 'package:client_city/api/accessApi.dart';
+import 'package:client_city/help/combo_city.dart';
 import 'package:client_city/help/components.dart';
 import 'package:client_city/help/radio_gender.dart';
+import 'package:client_city/model/city_model.dart';
+import 'package:client_city/model/client_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -18,8 +22,22 @@ class _ClientAddState extends State<ClientAdd> {
   TextEditingController txtGender = TextEditingController(text: 'M');
   TextEditingController txtAge = TextEditingController();
   TextEditingController txtCity = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as ClientModel;
+    txtName.text = args.name;
+    txtGender.text = args.gender;
+    txtAge.text = args.age.toString();
+    txtCity.text = args.city.id.toString();
+
+    save() {
+      ClientModel p = ClientModel(args.id, txtName.text, txtGender.text,
+          int.parse(txtAge.text), CityModel(int.parse(txtCity.text), "", ""));
+      AccessApi().saveClient(p.toJson());
+      Navigator.of(context).pushReplacementNamed('/client');
+    }
+
     return Scaffold(
       body: Form(
         key: formController,
@@ -54,7 +72,23 @@ class _ClientAddState extends State<ClientAdd> {
             Center(
               child: RadioGender(
                 controller: txtGender,
+                optEdit: args.gender,
               ),
+            ),
+            Center(
+              child: ComboCity(
+                controller: txtCity,
+                optEdit: args.city.id,
+              ),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Components()
+                      .createButton("Salvar", save, formController, context),
+                ),
+              ],
             )
           ],
         ),

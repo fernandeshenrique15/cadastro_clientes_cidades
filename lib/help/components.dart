@@ -73,27 +73,22 @@ class Components {
   }
 
   createButton(rotulo, funcao, controladorForm, context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 1,
-          child: Container(
-            padding: EdgeInsets.all(10),
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).colorScheme.primary,
-              ),
-              onPressed: () {
-                if (controladorForm.currentState!.validate()) {
-                  funcao();
-                }
-              },
-              child: createText(
-                  rotulo, 20, Theme.of(context).colorScheme.onSurface),
-            ),
+    return Padding(
+        padding: EdgeInsets.all(10),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: Theme.of(context).colorScheme.primary,
           ),
-        ),
-      ],
-    );
+          onPressed: () {
+            if (controladorForm.currentState!.validate()) {
+              funcao();
+            }
+          },
+          child: Padding(
+            padding: EdgeInsets.all(10),
+            child:
+                createText(rotulo, 20, Theme.of(context).colorScheme.onSurface),
+          ),
+        ));
   }
 }
