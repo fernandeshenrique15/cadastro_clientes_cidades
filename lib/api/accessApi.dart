@@ -16,6 +16,16 @@ class AccessApi {
     return clients;
   }
 
+  Future<List<ClientModel>> searchClients(int id) async {
+    String url = '$server/cliente/buscauf/$id';
+    http.Response resposta = await http.get(Uri.parse(url));
+    String jsonUtf8 = (utf8.decode(resposta.bodyBytes));
+    Iterable list = jsonDecode(jsonUtf8);
+    List<ClientModel> clients =
+        List<ClientModel>.from(list.map((p) => ClientModel.fromJson(p)));
+    return clients;
+  }
+
   Future<void> saveClient(Map<String, dynamic> client) async {
     String url = '$server/cliente';
     Map<String, String> headers = {
@@ -51,6 +61,18 @@ class AccessApi {
       cities = List<CityModel>.from(list.map((c) => CityModel.fromJson(c)));
     } else {
       // print(resposta.statusCode);
+    }
+    return cities;
+  }
+
+  Future<List<CityModel>> searchCities(String uf) async {
+    List<CityModel> cities = [];
+
+    String url = '$server/cidade/buscauf/$uf';
+    http.Response resposta = await http.get(Uri.parse(url));
+    if (resposta.statusCode == 200) {
+      Iterable list = jsonDecode(utf8.decode(resposta.bodyBytes));
+      cities = List<CityModel>.from(list.map((c) => CityModel.fromJson(c)));
     }
     return cities;
   }
