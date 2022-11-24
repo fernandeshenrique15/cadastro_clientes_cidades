@@ -4,10 +4,7 @@ import 'package:client_city/help/components.dart';
 import 'package:client_city/help/radio_gender.dart';
 import 'package:client_city/model/city_model.dart';
 import 'package:client_city/model/client_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ClientAdd extends StatefulWidget {
   const ClientAdd({super.key});
@@ -43,7 +40,7 @@ class _ClientAddState extends State<ClientAdd> {
         key: formController,
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: MediaQuery.of(context).size.height / 4,
               child: Icon(
                 Icons.people,

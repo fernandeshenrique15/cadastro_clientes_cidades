@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:client_city/model/city_model.dart';
 import 'package:client_city/model/client_model.dart';
 import 'package:http/http.dart' as http;
@@ -22,8 +21,7 @@ class AccessApi {
     Map<String, String> headers = {
       'Content-Type': 'application/json; charset=UTF-8'
     };
-    http.Response resposta = await http.post(Uri.parse(url),
-        headers: headers, body: jsonEncode(client));
+    await http.post(Uri.parse(url), headers: headers, body: jsonEncode(client));
   }
 
   Future<void> alterClient(Map<String, dynamic> client) async {
@@ -52,7 +50,7 @@ class AccessApi {
       Iterable list = jsonDecode(utf8.decode(resposta.bodyBytes));
       cities = List<CityModel>.from(list.map((c) => CityModel.fromJson(c)));
     } else {
-      print(resposta.statusCode);
+      // print(resposta.statusCode);
     }
     return cities;
   }
@@ -62,8 +60,7 @@ class AccessApi {
     Map<String, String> headers = {
       'Content-Type': 'application/json; charset=UTF-8'
     };
-    http.Response resposta = await http.post(Uri.parse(url),
-        headers: headers, body: jsonEncode(city));
+    await http.post(Uri.parse(url), headers: headers, body: jsonEncode(city));
   }
 
   Future<void> alterCity(Map<String, dynamic> city) async {

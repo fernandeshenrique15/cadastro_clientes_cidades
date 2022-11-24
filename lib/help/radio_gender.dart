@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-enum genderEnum { masculino, feminino }
+enum GenderEnum { masculino, feminino }
 
+// ignore: must_be_immutable
 class RadioGender extends StatefulWidget {
   TextEditingController? controller;
   String? optEdit;
@@ -13,16 +14,15 @@ class RadioGender extends StatefulWidget {
 }
 
 class _RadioGenderState extends State<RadioGender> {
-  genderEnum? _escolha = genderEnum.masculino;
+  GenderEnum? _escolha = GenderEnum.masculino;
 
   @override
   Widget build(BuildContext context) {
-    print(widget.optEdit);
     // if editing select the city
     if (widget.optEdit == "F") {
       setState(() {
         widget.optEdit = "";
-        _escolha = genderEnum.feminino;
+        _escolha = GenderEnum.feminino;
         widget.controller?.text = 'F';
       });
     }
@@ -36,12 +36,12 @@ class _RadioGenderState extends State<RadioGender> {
             style:
                 TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
           ),
-          leading: Radio<genderEnum>(
-            value: genderEnum.masculino,
+          leading: Radio<GenderEnum>(
+            value: GenderEnum.masculino,
             groupValue: _escolha,
             fillColor: MaterialStateColor.resolveWith(
                 (states) => Theme.of(context).colorScheme.primary),
-            onChanged: (genderEnum? value) {
+            onChanged: (GenderEnum? value) {
               setState(() {
                 _escolha = value;
                 widget.controller?.text = 'M';
@@ -56,12 +56,12 @@ class _RadioGenderState extends State<RadioGender> {
             style:
                 TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
           ),
-          leading: Radio<genderEnum>(
-            value: genderEnum.feminino,
+          leading: Radio<GenderEnum>(
+            value: GenderEnum.feminino,
             groupValue: _escolha,
             fillColor: MaterialStateColor.resolveWith(
                 (states) => Theme.of(context).colorScheme.primary),
-            onChanged: (genderEnum? value) {
+            onChanged: (GenderEnum? value) {
               setState(() {
                 _escolha = value;
                 widget.controller?.text = 'F';

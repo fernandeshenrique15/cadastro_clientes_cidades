@@ -1,3 +1,4 @@
+import 'package:client_city/pages/city_add.dart';
 import 'package:client_city/pages/client_add.dart';
 import 'package:flutter/material.dart';
 import 'package:client_city/help/themas.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const Home(),
         '/city': (context) => const City(),
+        '/cityAdd': (context) => const CityAdd(),
         '/client': (context) => const Client(),
         '/clientAdd': (context) => const ClientAdd(),
       },

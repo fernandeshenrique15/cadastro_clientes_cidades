@@ -4,9 +4,11 @@ class Components {
   createAppBar(titulo, tam, cor, acao) {
     return AppBar(
       title: createText(titulo, tam, cor),
+      iconTheme: IconThemeData(color: cor),
       centerTitle: true,
       actions: [
-        if (acao != null) IconButton(onPressed: acao, icon: Icon(Icons.home))
+        if (acao != null)
+          IconButton(onPressed: acao, icon: const Icon(Icons.home))
       ],
     );
   }
@@ -55,11 +57,11 @@ class Components {
           flex: 1,
           child: Container(
             height: tamanho,
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Theme.of(context).colorScheme.primary,
-              ),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                      Theme.of(context).colorScheme.primary)),
               onPressed: () {
                 funcao(page);
               },
@@ -74,18 +76,18 @@ class Components {
 
   createButton(rotulo, funcao, controladorForm, context) {
     return Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: Theme.of(context).colorScheme.primary,
-          ),
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  Theme.of(context).colorScheme.primary)),
           onPressed: () {
             if (controladorForm.currentState!.validate()) {
               funcao();
             }
           },
           child: Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child:
                 createText(rotulo, 20, Theme.of(context).colorScheme.onSurface),
           ),

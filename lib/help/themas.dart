@@ -8,8 +8,8 @@ class Themas {
         primary: Colors.green,
         secondary: Colors.green,
         inversePrimary: Colors.white,
-        onBackground: Color.fromARGB(255, 94, 93, 93),
-        background: Color.fromARGB(255, 48, 48, 48),
+        onBackground: const Color.fromARGB(255, 94, 93, 93),
+        background: const Color.fromARGB(255, 48, 48, 48),
       ),
     );
 

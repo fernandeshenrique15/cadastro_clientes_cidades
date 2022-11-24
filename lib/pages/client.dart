@@ -2,11 +2,8 @@ import 'package:client_city/api/accessApi.dart';
 import 'package:client_city/help/components.dart';
 import 'package:client_city/model/city_model.dart';
 import 'package:client_city/model/client_model.dart';
-import 'package:client_city/pages/city.dart';
 import 'package:client_city/pages/client_add.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class Client extends StatefulWidget {
   const Client({super.key});
@@ -28,12 +25,42 @@ class _ClientState extends State<Client> {
     Navigator.pushNamed(context, '/');
   }
 
+  iconGender(opt) {
+    if (opt == "M") {
+      return const Icon(
+        Icons.man,
+        color: Colors.blue,
+      );
+    }
+    return const Icon(
+      Icons.woman,
+      color: Colors.pink,
+    );
+  }
+
   createCard(ClientModel c, context) {
     return ListTile(
-      title: Components().createText("${c.id} - ${c.name}", 12,
-          Theme.of(context).colorScheme.inversePrimary),
-      subtitle: Components().createText("${c.age} ${c.city.name}", 12,
-          Theme.of(context).colorScheme.inversePrimary),
+      title: Row(
+        children: [
+          iconGender(c.gender),
+          Components().createText("${c.id} - ${c.name}", 12,
+              Theme.of(context).colorScheme.inversePrimary)
+        ],
+      ),
+      subtitle: Row(
+        children: [
+          Icon(
+            Icons.cake,
+            size: 20,
+            color: Theme.of(context).colorScheme.inversePrimary,
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          Components().createText("${c.age} anos - ${c.city.name}", 12,
+              Theme.of(context).colorScheme.inversePrimary),
+        ],
+      ),
       trailing: FittedBox(
         fit: BoxFit.fill,
         child: Row(
@@ -91,7 +118,7 @@ class _ClientState extends State<Client> {
 
   generateCards() {
     if (lista.isEmpty) {
-      return const Center(child: Text("Sem conexão com a API"));
+      return const Center(child: Text("Esperando a API"));
     } else {
       return ListView.builder(
           itemCount: lista.length,
@@ -113,7 +140,7 @@ class _ClientState extends State<Client> {
           Theme.of(context).colorScheme.inversePrimary, redirectHome),
       body: generateCards(),
       floatingActionButton: FloatingActionButton(
-          onPressed: redirectClientAdd, child: Icon(Icons.add)),
+          onPressed: redirectClientAdd, child: const Icon(Icons.add)),
     );
   }
 }
