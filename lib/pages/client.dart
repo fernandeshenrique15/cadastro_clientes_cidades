@@ -1,4 +1,5 @@
 import 'package:client_city/api/accessApi.dart';
+import 'package:client_city/help/combo_city.dart';
 import 'package:client_city/help/components.dart';
 import 'package:client_city/model/city_model.dart';
 import 'package:client_city/model/client_model.dart';
@@ -16,6 +17,8 @@ class _ClientState extends State<Client> {
   List<ClientModel> lista = [];
 
   GlobalKey<FormState> formController = GlobalKey<FormState>();
+
+  TextEditingController txtCity = TextEditingController();
 
   redirect(page) {
     Navigator.pushNamed(context, '$page');
@@ -103,6 +106,13 @@ class _ClientState extends State<Client> {
     });
   }
 
+  searchClient(int city) async {
+    List<ClientModel> clients = await AccessApi().searchClients(city);
+    setState(() {
+      lista = clients;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -138,7 +148,54 @@ class _ClientState extends State<Client> {
     return Scaffold(
       appBar: Components().createAppBar("Listagem de clientes", 20,
           Theme.of(context).colorScheme.inversePrimary, redirectHome),
-      body: generateCards(),
+      body: Column(children: [
+        Form(
+          key: formController,
+          child: Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: ComboCity(controller: txtCity),
+              ),
+              Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).colorScheme.primary)),
+                    onPressed: () {
+                      if (formController.currentState!.validate()) {
+                        searchClient(int.parse(txtCity.text));
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 17, bottom: 17),
+                      child: Components().createText("Filtrar", 20,
+                          Theme.of(context).colorScheme.onSurface),
+                    ),
+                  )),
+              const SizedBox(width: 5),
+              Expanded(
+                  flex: 1,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                            Theme.of(context).colorScheme.primary)),
+                    onPressed: () {
+                      listClient();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(17),
+                      child: Components().createText("Limpar", 20,
+                          Theme.of(context).colorScheme.onSurface),
+                    ),
+                  )),
+              const SizedBox(width: 10),
+            ],
+          ),
+        ),
+        Expanded(flex: 1, child: generateCards())
+      ]),
       floatingActionButton: FloatingActionButton(
           onPressed: redirectClientAdd, child: const Icon(Icons.add)),
     );

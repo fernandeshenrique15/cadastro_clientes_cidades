@@ -16,8 +16,8 @@ class AccessApi {
     return clients;
   }
 
-  Future<List<ClientModel>> searchClients(int id) async {
-    String url = '$server/cliente/buscauf/$id';
+  Future<List<ClientModel>> searchClients(int city) async {
+    String url = '$server/cliente/cidade/$city';
     http.Response resposta = await http.get(Uri.parse(url));
     String jsonUtf8 = (utf8.decode(resposta.bodyBytes));
     Iterable list = jsonDecode(jsonUtf8);
