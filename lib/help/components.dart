@@ -37,6 +37,7 @@ class Components {
                 width: 2.0,
               ),
             ),
+            contentPadding: EdgeInsets.symmetric(vertical: 22, horizontal: 10),
             labelStyle:
                 TextStyle(color: Theme.of(context).colorScheme.inversePrimary)),
         style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary),

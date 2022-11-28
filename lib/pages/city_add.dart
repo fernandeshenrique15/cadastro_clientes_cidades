@@ -1,4 +1,5 @@
 import 'package:client_city/api/accessApi.dart';
+import 'package:client_city/help/combo_uf.dart';
 import 'package:client_city/help/components.dart';
 import 'package:client_city/model/city_model.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,14 @@ class _CityAddState extends State<CityAdd> {
       Navigator.of(context).pushReplacementNamed('/city');
     }
 
+    empty() {
+      null;
+    }
+
+    empty2(String teste) {
+      null;
+    }
+
     return Scaffold(
       body: Form(
         key: formController,
@@ -49,13 +58,12 @@ class _CityAddState extends State<CityAdd> {
                 ),
                 Expanded(
                     flex: 50,
-                    child: Components().createTextField(
-                        "Estado",
-                        false,
-                        TextInputType.text,
-                        txtState,
-                        "Digite o estado",
-                        context)),
+                    child: ComboUf(
+                      controller: txtState,
+                      search: empty2,
+                      listAll: empty,
+                      isFilter: false,
+                    ))
               ],
             ),
             Row(

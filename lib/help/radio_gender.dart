@@ -18,6 +18,8 @@ class _RadioGenderState extends State<RadioGender> {
 
   @override
   Widget build(BuildContext context) {
+    widget.controller?.text = 'M';
+
     // if editing select the city
     if (widget.optEdit == "F") {
       setState(() {

@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:client_city/api/accessApi.dart';
+import 'package:client_city/help/combo_uf.dart';
 import 'package:client_city/help/components.dart';
 import 'package:client_city/model/city_model.dart';
 import 'package:client_city/model/uf_model.dart';
@@ -104,10 +105,6 @@ class _CityState extends State<City> {
     Navigator.pushNamed(context, '/');
   }
 
-  searchUF() {
-    return null;
-  }
-
   generateCards() {
     if (lista.isEmpty) {
       return const Center(child: Text("Sem resultado"));
@@ -206,7 +203,9 @@ class _CityState extends State<City> {
           Form(
               key: formController,
               child: SizedBox(
-                child: comboUfs(),
+                //child: comboUfs(),
+                child: ComboUf(
+                    search: searchCities, listAll: listCity, isFilter: true),
               )),
           Expanded(
             flex: 1,
