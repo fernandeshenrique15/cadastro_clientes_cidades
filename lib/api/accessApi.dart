@@ -4,7 +4,8 @@ import 'package:client_city/model/client_model.dart';
 import 'package:http/http.dart' as http;
 
 class AccessApi {
-  final String server = 'http://localhost:8080';
+  final String server = 'https://api-clientes.fernandes.dev.br';
+  final String teste = 'http://localhost:8080';
 
   Future<List<ClientModel>> listClients() async {
     String url = '$server/cliente';

@@ -14,11 +14,12 @@ class RadioGender extends StatefulWidget {
 }
 
 class _RadioGenderState extends State<RadioGender> {
-  GenderEnum? _escolha = GenderEnum.masculino;
+  GenderEnum? _escolha;
+  // = GenderEnum.masculino;
 
   @override
   Widget build(BuildContext context) {
-    widget.controller?.text = 'M';
+    //widget.controller?.text = 'M';
 
     // if editing select the city
     if (widget.optEdit == "F") {

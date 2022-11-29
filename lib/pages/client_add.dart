@@ -16,7 +16,7 @@ class ClientAdd extends StatefulWidget {
 class _ClientAddState extends State<ClientAdd> {
   GlobalKey<FormState> formController = GlobalKey<FormState>();
   TextEditingController txtName = TextEditingController();
-  TextEditingController txtGender = TextEditingController(text: 'M');
+  TextEditingController txtGender = TextEditingController();
   TextEditingController txtAge = TextEditingController();
   TextEditingController txtCity = TextEditingController();
 
