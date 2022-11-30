@@ -63,6 +63,7 @@ class _CityAddState extends State<CityAdd> {
                       search: empty2,
                       listAll: empty,
                       isFilter: false,
+                      optEdit: args.uf,
                     ))
               ],
             ),
