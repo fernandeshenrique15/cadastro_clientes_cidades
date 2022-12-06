@@ -100,9 +100,9 @@ class _ClientState extends State<Client> {
   }
 
   listClient() async {
-    List<ClientModel> clientes = await AccessApi().listClients();
+    List<ClientModel> clients = await AccessApi().listClients();
     setState(() {
-      lista = clientes;
+      lista = clients;
     });
   }
 
