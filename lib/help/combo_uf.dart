@@ -8,13 +8,15 @@ class ComboUf extends StatefulWidget {
   Function search;
   Function listAll;
   bool isFilter;
+  String? optEdit;
 
   ComboUf(
       {Key? key,
       this.controller,
       required this.search,
       required this.listAll,
-      required this.isFilter})
+      required this.isFilter,
+      this.optEdit})
       : super(key: key);
 
   @override
@@ -57,9 +59,22 @@ class _ComboUfState extends State<ComboUf> {
 
   @override
   Widget build(BuildContext context) {
+    // if editing select the uf
+    if (widget.optEdit != null && widget.optEdit != "") {
+      int indexUf = ufs.indexWhere(((uf) => uf.name == widget.optEdit));
+      ufSel = ufs.elementAt(indexUf).id;
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8),
       child: DropdownButtonFormField(
+          validator: (value) {
+            if (value == null || value == 0) {
+              return 'Selecione um estado';
+            }
+            return null;
+          },
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           decoration: InputDecoration(
             border: const OutlineInputBorder(),
             enabledBorder: OutlineInputBorder(
@@ -102,7 +117,18 @@ class _ComboUfState extends State<ComboUf> {
             }
           },
           items: ufs.map<DropdownMenuItem<int>>((UfModel uid) {
-            return DropdownMenuItem<int>(value: uid.id, child: Text(uid.name));
+            if (!widget.isFilter) {
+              if (uid.id != 0) {
+                return DropdownMenuItem<int>(
+                    value: uid.id, child: Text(uid.name));
+              } else {
+                return DropdownMenuItem<int>(
+                    value: uid.id, child: const Text("Selecione"));
+              }
+            } else {
+              return DropdownMenuItem<int>(
+                  value: uid.id, child: Text(uid.name));
+            }
           }).toList()),
     );
   }
