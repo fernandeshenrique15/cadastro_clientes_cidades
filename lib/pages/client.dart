@@ -143,59 +143,60 @@ class _ClientState extends State<Client> {
     }
   }
 
+  buttonIcon(function, icon, boolForm) {
+    return Expanded(
+        flex: 1,
+        child: ElevatedButton(
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(
+                  Theme.of(context).colorScheme.primary)),
+          onPressed: () {
+            if (!boolForm) {
+              function();
+            } else {
+              if (formController.currentState!.validate()) {
+                function(int.parse(txtCity.text));
+              }
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 17, bottom: 17),
+            child: Icon(
+              icon,
+              color: Colors.white,
+            ),
+          ),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: Components().createAppBar("Listagem de clientes", 20,
           Theme.of(context).colorScheme.inversePrimary, redirectHome),
-      body: Column(children: [
-        Form(
-          key: formController,
-          child: Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: ComboCity(controller: txtCity),
-              ),
-              Expanded(
-                  flex: 1,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).colorScheme.primary)),
-                    onPressed: () {
-                      if (formController.currentState!.validate()) {
-                        searchClient(int.parse(txtCity.text));
-                      }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 17, bottom: 17),
-                      child: Components().createText("Filtrar", 20,
-                          Theme.of(context).colorScheme.onSurface),
-                    ),
-                  )),
-              const SizedBox(width: 2),
-              Expanded(
-                  flex: 1,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).colorScheme.primary)),
-                    onPressed: () {
-                      listClient();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 17, bottom: 17),
-                      child: Components().createText("Limpar", 20,
-                          Theme.of(context).colorScheme.onSurface),
-                    ),
-                  )),
-              const SizedBox(width: 10),
-            ],
+      body: Column(
+        children: [
+          Form(
+            key: formController,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: ComboCity(controller: txtCity),
+                ),
+                buttonIcon(searchClient, Icons.search, true),
+                const SizedBox(width: 2),
+                buttonIcon(listClient, Icons.filter_alt_off, false),
+                const SizedBox(width: 4),
+              ],
+            ),
           ),
-        ),
-        Expanded(flex: 1, child: generateCards())
-      ]),
+          Expanded(
+            flex: 1,
+            child: generateCards(),
+          )
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
           onPressed: redirectClientAdd, child: const Icon(Icons.add)),
     );
