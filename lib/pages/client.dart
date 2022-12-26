@@ -174,7 +174,7 @@ class _ClientState extends State<Client> {
                           Theme.of(context).colorScheme.onSurface),
                     ),
                   )),
-              const SizedBox(width: 5),
+              const SizedBox(width: 2),
               Expanded(
                   flex: 1,
                   child: ElevatedButton(
@@ -185,7 +185,7 @@ class _ClientState extends State<Client> {
                       listClient();
                     },
                     child: Padding(
-                      padding: const EdgeInsets.all(17),
+                      padding: const EdgeInsets.only(top: 17, bottom: 17),
                       child: Components().createText("Limpar", 20,
                           Theme.of(context).colorScheme.onSurface),
                     ),
