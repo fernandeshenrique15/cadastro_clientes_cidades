@@ -146,7 +146,7 @@ class _ClientState extends State<Client> {
   buttonIcon(function, icon, boolForm) {
     return Expanded(
         flex: 1,
-        child: ElevatedButton(
+        child: TextButton(
           style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(
                   Theme.of(context).colorScheme.primary)),
@@ -159,11 +159,12 @@ class _ClientState extends State<Client> {
               }
             }
           },
-          child: Padding(
-            padding: const EdgeInsets.only(top: 17, bottom: 17),
+          child: SizedBox(
+            height: 55,
             child: Icon(
               icon,
               color: Colors.white,
+              size: 20,
             ),
           ),
         ));

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:client_city/api/accessApi.dart';
 import 'package:client_city/model/uf_model.dart';
 
 // ignore: must_be_immutable
